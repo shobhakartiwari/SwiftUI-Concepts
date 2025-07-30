@@ -190,3 +190,55 @@ struct ContentView: View {
     }
 }
 ```
+# 5. Purpose of the ButtonStyle Protocol in SwiftUI
+
+SwiftUI provides multiple built-in button styles like `.bordered`, `.plain`, `.link`, and `.automatic`—but sometimes, you need full control over how buttons look and behave.
+
+That’s where the `ButtonStyle` protocol comes in.
+
+## Why Use ButtonStyle
+
+- Create reusable, consistent button designs across your app
+- Fully customize visual appearance (e.g., color, shape, padding)
+- Apply them globally or to individual buttons
+- Adapt styling based on button state (e.g., pressed, hovered)
+
+## How It Works
+
+You define a struct that conforms to `ButtonStyle` and implement `makeBody(configuration:)`, which gives you access to:
+
+- The button label
+- The pressed state (`configuration.isPressed`)
+
+## ButtonStyle vs. PrimitiveButtonStyle
+
+### ButtonStyle
+- Focuses on styling only, using the system’s built-in button behavior (e.g., tap handling, accessibility, animations).
+
+### PrimitiveButtonStyle
+- Gives lower-level control, allowing you to redefine the entire button interaction, not just the appearance. Use it when you want to fully customize how a button responds to events.
+
+## TL;DR
+Use `ButtonStyle` to define consistent design across your app. Reach for `PrimitiveButtonStyle` only when you need to customize how the button works, not just how it looks.
+```swift
+import SwiftUI
+
+struct RoundedBlueButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .background(configuration.isPressed ? Color.blue.opacity(0.6) : Color.blue)
+            .foregroundColor(.white)
+            .clipShape(Capsule())
+    }
+}
+
+struct ContentView: View {
+    var body: some View {
+        Button("Tap Me") {
+            // action here
+        }
+        .buttonStyle(RoundedBlueButton())
+    }
+}
+```
