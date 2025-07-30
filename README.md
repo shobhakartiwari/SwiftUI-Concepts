@@ -284,3 +284,37 @@ struct ResponsiveBox: View {
     }
 }
 ```
+# 7. Why SwiftUI Uses Structs for Views Instead of Classes
+
+The short answer: structs are simpler and more efficient than classes.
+
+## Deeper Insight
+
+### Value Types = Predictable Behavior
+
+SwiftUI views are defined as value types (structs) instead of reference types (classes). This means:
+
+- Views are copied, not referenced, making them immutable by default
+- You avoid common pitfalls like unexpected shared state or reference cycles
+- Structs are lightweight and fast to create and destroy
+
+### Why This Matters in SwiftUI
+
+SwiftUI is a declarative UI framework, which means the system:
+
+- Continuously re-evaluates and rebuilds views based on state
+- Needs to do this frequently and efficiently
+
+Using structs allows SwiftUI to:
+
+- Create new view instances on demand without worrying about memory bloat
+- Eliminate the need for manual lifecycle management
+- Keep performance high, even during complex UI updates
+
+## Pro Tip
+
+Although views are recreated, SwiftUI maintains state using tools like `@State`, `@Binding`, and `@Environment`, which are stored outside the view struct itself.
+
+## Bottom Line
+
+SwiftUI uses structs for simplicity, safety, and performance—and it’s one of the key reasons the framework scales so well across platforms.
