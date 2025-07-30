@@ -170,4 +170,23 @@ Just update the `@State` or `@Binding` variable when the external trigger occurs
 Be aware that navigation links must exist in the view hierarchy even if hidden, or the navigation won’t work properly.
 
 SwiftUI’s programmatic navigation is all about state-driven flows—declarative and reactive, just like the rest of the framework.
+```swift
+struct ContentView: View {
+    @State private var navigate = false
+
+    var body: some View {
+        NavigationView {
+            VStack {
+                Button("Go to Details") {
+                    navigate = true
+                }
+
+                NavigationLink(destination: DetailView(), isActive: $navigate) {
+                    EmptyView()
+                }
+            }
+            .navigationTitle("Home")
+        }
+    }
+}
 ```
