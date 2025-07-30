@@ -318,3 +318,50 @@ Although views are recreated, SwiftUI maintains state using tools like `@State`,
 ## Bottom Line
 
 SwiftUI uses structs for simplicity, safety, and performance—and it’s one of the key reasons the framework scales so well across platforms.
+
+# 8.Understanding SwiftUI’s Environment for New Developers
+
+In SwiftUI, the **environment** is like a shared container of values that any view in the view hierarchy can access. Think of it as a singleton-style dependency injector, but scoped to the view tree.
+
+Instead of manually passing data through view initializers, you can inject values globally or locally into the environment using modifiers. These values can then be accessed using property wrappers like `@Environment` and `@EnvironmentObject`.
+
+## Why It Matters
+- **Decoupled and testable views**: Keeps your views independent from specific data sources.
+- **Shared data access**: Easily share app settings, themes, locale, size classes, color schemes, and more.
+- **Avoids prop drilling**: Eliminates the need to pass values through multiple layers of views.
+
+## Key Concepts
+- **`@Environment`**: Used for system-provided values, such as `colorScheme`, `sizeCategory`, or `locale`.
+- **`@EnvironmentObject`**: Used for custom `ObservableObject` instances that are injected once and accessible anywhere in the view hierarchy below.
+
+## Environment vs. Injecting via @ObservedObject
+- **`@ObservedObject`**: Requires explicit passing through a view’s initializer, leading to tight coupling.
+- **`@EnvironmentObject`**: Injected implicitly via the view hierarchy, enabling loose coupling. You don’t need to modify intermediate views to pass data down.
+
+## Summary
+SwiftUI’s environment helps you build modular, scalable, and reactive UIs. It promotes a clean architecture by separating the view structure from the data flow.
+```swift
+import SwiftUI
+
+class Settings: ObservableObject {
+    @Published var isDarkMode = false
+}
+
+struct RootView: View {
+    @StateObject var settings = Settings()
+    
+    var body: some View {
+        ContentView()
+            .environmentObject(settings)
+    }
+}
+
+struct ContentView: View {
+    @EnvironmentObject var settings: Settings
+    
+    var body: some View {
+        Toggle("Dark Mode", isOn: $settings.isDarkMode)
+            .padding()
+    }
+}
+```
