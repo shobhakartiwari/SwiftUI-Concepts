@@ -53,3 +53,28 @@ struct DetailView: View {
 }
 
 ```
+
+# 2. SwiftUI: `@StateObject` vs `@ObservedObject`
+
+In SwiftUI, both `@StateObject` and `@ObservedObject` are used to monitor observable objects and update views when the data changes. But their **purpose and lifecycle** differ—and choosing the wrong one can cause subtle bugs.
+
+---
+
+## 🧱 `@StateObject`
+
+Use this when **the view creates and owns the object**.
+
+- SwiftUI takes ownership and ensures the object **persists across view re-renders**.
+- Prevents the object from being reinitialized when the view reloads.
+- Introduced in **SwiftUI 2.0** to fix bugs common with `@ObservedObject` when used incorrectly.
+
+### ✅ Use Case:
+```swift
+struct ProfileView: View {
+    @StateObject private var viewModel = ProfileViewModel()
+
+    var body: some View {
+        Text(viewModel.name)
+    }
+}
+```
