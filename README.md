@@ -78,3 +78,22 @@ struct ProfileView: View {
     }
 }
 ```
+
+## 📨 @ObservedObject
+- Use this when the object is passed in or owned elsewhere.
+- The view does not own the object—it just observes changes.
+- It can be recreated every time the parent view updates, which may reset state if misused.
+```swift
+struct ProfileDetailView: View {
+    @ObservedObject var viewModel: ProfileViewModel
+
+    var body: some View {
+        Text(viewModel.details)
+    }
+}
+```
+- ✅ ProfileDetailView just observes the viewModel, so we use @ObservedObject.
+- When to Use 
+  - View **creates and owns** the object  | `@StateObject`    
+  - View **receives and observes** object | `@ObservedObject` 
+
