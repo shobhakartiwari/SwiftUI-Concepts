@@ -141,3 +141,33 @@ class ProfileViewModel: ObservableObject {
     }
 }
 ```
+
+# 4. Programmatic Navigation in SwiftUI
+
+While SwiftUI makes simple navigation clean and intuitive with `NavigationLink`, things get more complex when you need to navigate programmatically—that is, based on state, deep links, or external triggers.
+
+This is essential when handling:
+
+- Deep links from Spotlight, Siri, or widgets
+- Navigation based on logic (e.g., login success, error redirects)
+- Multi-screen flows that aren’t user-initiated taps
+
+## Key Concept
+
+Programmatic navigation in SwiftUI requires declaring all navigation paths up front, then using bindings or selection tags to trigger transitions.
+
+## Two Common Patterns
+
+1. **Boolean binding with `NavigationLink(isActive:)`**
+2. **Tag + selection with `NavigationLink(tag:selection:)`** — useful for handling multiple navigation states
+
+## Bonus: Handling Deep Links or External Events
+
+Just update the `@State` or `@Binding` variable when the external trigger occurs.
+
+## Tip
+
+Be aware that navigation links must exist in the view hierarchy even if hidden, or the navigation won’t work properly.
+
+SwiftUI’s programmatic navigation is all about state-driven flows—declarative and reactive, just like the rest of the framework.
+```
