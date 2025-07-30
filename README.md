@@ -242,3 +242,45 @@ struct ContentView: View {
     }
 }
 ```
+
+# 6. When to Use GeometryReader in SwiftUI
+
+The simplest answer: `GeometryReader` lets you read the size and position of a view, enabling you to build layouts that adapt dynamically to the available space.
+
+## Common Use Cases
+
+- Creating proportional or responsive layouts
+- Animating views based on their position on screen
+- Applying modifiers conditionally based on view size or geometry
+- Implementing parallax effects or scroll-based UI transformations
+
+## How It Works
+
+`GeometryReader` injects a `GeometryProxy` into your view, giving you access to:
+
+- `size`: the width and height available to the view
+- `safeAreaInsets`: safe area constraints (like notches)
+- `frame(in:)`: the view’s position relative to a given coordinate space
+
+## Caution
+
+`GeometryReader` is powerful, but often over-used. It can break layout expectations if not carefully constrained and may lead to performance issues or unwanted complexity.
+
+## Best Practice
+
+Use `GeometryReader` when you truly need dynamic layout behavior based on geometry—not just to “get the width.”
+
+Use `GeometryReader` wisely—it’s a powerful tool, not a layout shortcut.
+```swift
+import SwiftUI
+
+struct ResponsiveBox: View {
+    var body: some View {
+        GeometryReader { geo in
+            Rectangle()
+                .fill(Color.blue)
+                .frame(width: geo.size.width / 2, height: geo.size.width / 2)
+        }
+    }
+}
+```
