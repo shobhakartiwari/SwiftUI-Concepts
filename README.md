@@ -365,3 +365,10 @@ struct ContentView: View {
     }
 }
 ```
+# 9. SwiftUI ViewModel and ObservableObject Basics
+- ObservedObject is used when we need to track a value from ViewModel, and the ViewModel is a class. To track that ViewModel in SwiftUI, I can create a variable in the view, and monitor changes so the view re-renders. For this, the ViewModel must conform to ObservableObject, and its properties must be marked with @Published.
+- To make a ViewModel reactive in SwiftUI, it must conform to `ObservableObject`. Here's how it works:
+
+- **Conforming to `ObservableObject`**: Signals to SwiftUI that the ViewModel may have properties that can change, without specifying which ones.
+- **Using `@Published`**: Marks properties that should trigger a view re-render when their values change. SwiftUI automatically refreshes views that depend on these properties.
+- **Using `@ObservedObject` in Views**: Tells the view to observe the ViewModel and update itself when changes occur.
