@@ -372,3 +372,19 @@ struct ContentView: View {
 - **Conforming to `ObservableObject`**: Signals to SwiftUI that the ViewModel may have properties that can change, without specifying which ones.
 - **Using `@Published`**: Marks properties that should trigger a view re-render when their values change. SwiftUI automatically refreshes views that depend on these properties.
 - **Using `@ObservedObject` in Views**: Tells the view to observe the ViewModel and update itself when changes occur.
+
+# 10. What Does the @Published Property Wrapper Do in Swift?
+
+`@Published` is used in classes conforming to the `ObservableObject` protocol to automatically notify SwiftUI views of changes, triggering reactive UI updates.
+
+## How It Works
+
+- Automatically triggers `objectWillChange` when the property’s value changes.
+- Integrates with views observing via `@ObservedObject`, `@StateObject`, or `@EnvironmentObject`.
+- Enables precise UI updates based on object state.
+
+## Real-World Example: A Todo List Manager
+
+## Summary
+
+Use `@Published` to ensure SwiftUI is notified of data model changes. It’s the simplest way to bind observable data to the UI, keeping everything synchronized declaratively and reactively.
